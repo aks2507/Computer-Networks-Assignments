@@ -1,5 +1,5 @@
 # Computer-Networks-Assignments
-## Assignemnt:1
+## Assignment:1
 1) Create processes sequentially; P1 -> P2 -> P3 -> P4
 2) Create two processes from single process and the parent informs whenever and whichever of the children exit; P1 -> P2, P1 -> P3
 3) Alternatingly post statements from two processes and use semaphores for synchronization
