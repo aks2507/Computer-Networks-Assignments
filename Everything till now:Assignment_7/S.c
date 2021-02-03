@@ -174,14 +174,21 @@ int main()
 		1) SHARING PID OF S TO D
 		2) KILL CALL COUNTS
 	*/
-	k_shmptr=ftok("spid",65);
+	k_shmptr=ftok(".",64);
 	int shm_spid=shmget(k_shmptr,sizeof(int),IPC_CREAT|0666);
 	shmptr=(int*)shmat(shm_spid,NULL,0);
-	*shmptr=getpid();
-
-	k_kill_call=ftok("kill_call",65);
+	
+	*shmptr=0;
+	
+	k_kill_call=ftok(".",65);
 	int shm_kill_call=shmget(k_kill_call,sizeof(int),IPC_CREAT|0666);
 	kill_call_shmptr=(int*)shmat(shm_kill_call,NULL,0);
+	
+	int pid_s=getpid();
+	*shmptr=pid_s;
+	printf("Send: %d\n",pid_s);
+
+	
 	*kill_call_shmptr=0;
 
 	/*FIFO CREATION FOR C1 AND C2*/
