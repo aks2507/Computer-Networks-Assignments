@@ -32,3 +32,9 @@
 3) Use two shared memories and signals to implement two way communication between two processes
 4) Make a handler that nullifies the functioning of Ctrl+c
 5) Make a handler that nullifies the functioning of Ctrl+c for only the first 5 times you press Ctrl+c
+
+## Assignment:6
+1) P2 receives a signal from P1 and P2 knows it is from P1
+2) P1 executes P2, P3 and P4, and signals all of them at the same time as a group
+3) Communicate between two threads within a process
+4) Communication between two threads in two processes. P1 sends and P2 receives
