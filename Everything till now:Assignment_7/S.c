@@ -28,7 +28,7 @@ char* sc2="sc2";
 char* a="a";
 char* b="b";
 
-char buff_c1[1024],buff_c2[1024];
+char buff_c1[1024];//buff_c2[1024];
 int children[4];
 
 int* shmptr;
@@ -55,27 +55,36 @@ void handler(int sig)
 	{
 		printf("Sending signal to Group1\n");
 		int kills=*kill_call_shmptr;
-		*kill_call_shmptr=kills+1;
+		*kill_call_shmptr=kills+3;
+		killpg(children[3],SIGSTOP);
+		killpg(children[0],SIGCONT);
 		killpg(children[0],SIGUSR1);
-
 		int fd_sc1=open(sc1,O_WRONLY);
-		write(fd_sc1,"message from S to G1\n",sizeof "message from S to G1\n");
+		//write(fd_sc1,"message from S to G1: ",sizeof "message from S to G1: ");
+		write(fd_sc1,buff_c1,sizeof(buff_c1));
 
 		int fd_sc2=open(sc2,O_WRONLY);
-		write(fd_sc1,"message from S to G1\n",sizeof "message from S to G1\n");
+		//write(fd_sc2,"message from S to G1: ",sizeof "message from S to G1: ");
+		write(fd_sc2,buff_c1,sizeof(buff_c1));
+
 	}
 	else
 	{
 		printf("Sending signal to Group2\n");
 		int kills=*kill_call_shmptr;
-		*kill_call_shmptr=kills+1;
-		killpg(children[3],SIGUSR2);
-
+		*kill_call_shmptr=kills+3;
+		killpg(children[0],SIGSTOP);
+		killpg(children[3],SIGCONT);
+		killpg(children[3],SIGUSR1);
+        
 		int fd_a=open(a,O_WRONLY);
-		write(fd_a,"message from S to G2\n",sizeof "message from S to G2\n");
+		//write(fd_a,"message from S to G2: ",sizeof "message from S to G2: ");
+		write(fd_a,buff_c1,sizeof(buff_c1));
 
 		int fd_b=open(b,O_WRONLY);
-		write(fd_b,"message from S to G2\n",sizeof "message from S to G2\n");
+		//write(fd_b,"message from S to G2: ",sizeof "message from S to G2: ");
+		write(fd_b,buff_c1,sizeof(buff_c1));
+		
 	}
 	
 }
@@ -89,6 +98,12 @@ void handler_sc1(int sig)
 	close(fd_sc1);
 
 	printf("S`1: Message read from S = %s\n",buff);
+	sleep(1);
+	//int kills=*kill_call_shmptr;
+	//*kill_call_shmptr=kills+2;
+	//sleep(1);
+	//killpg(children[0],SIGSTOP);
+	//killpg(children[3],SIGCONT);
 }
 
 void handler_sc2(int sig)
@@ -111,6 +126,12 @@ void handler_a(int sig)
 	close(fd_a);
 
 	printf("A: Message read from S = %s\n",buff);
+	sleep(1);
+	//int kills=*kill_call_shmptr;
+	//*kill_call_shmptr=kills+2;
+	//sleep(1);
+	//killpg(children[3],SIGSTOP);
+	//killpg(children[0],SIGCONT);
 }
 
 void handler_b(int sig)
@@ -157,6 +178,16 @@ void *polling(void* args)
 					{
 						printf("Poll read works!!\n");
 						printf("Read from %d: %s\n",pfd[i].fd,buff);
+						// if(i==0)
+						// {
+						// 	strcpy(buff_c1,buff);
+						// }
+						// else
+						// {
+						// 	strcpy(buff_c2,buff);
+						// }
+						strcpy(buff_c1,buff);
+						fflush(fdopen(pfd[i].fd,"r+"));
 					}
 				}
 			}
@@ -175,13 +206,13 @@ int main()
 		2) KILL CALL COUNTS
 	*/
 	k_shmptr=ftok(".",64);
-	int shm_spid=shmget(k_shmptr,sizeof(int),IPC_CREAT|0666);
+	shm_spid=shmget(k_shmptr,sizeof(int),IPC_CREAT|0666);
 	shmptr=(int*)shmat(shm_spid,NULL,0);
 	
 	*shmptr=0;
 	
 	k_kill_call=ftok(".",65);
-	int shm_kill_call=shmget(k_kill_call,sizeof(int),IPC_CREAT|0666);
+	shm_kill_call=shmget(k_kill_call,sizeof(int),IPC_CREAT|0666);
 	kill_call_shmptr=(int*)shmat(shm_kill_call,NULL,0);
 	
 	int pid_s=getpid();
@@ -272,6 +303,9 @@ int main()
 
 					setpgid(children[0],children[0]); //S`1
 					setpgid(children[1],children[0]); //S`2
+
+					killpg(children[0],SIGSTOP);
+					killpg(children[3],SIGSTOP);
 
 					sigemptyset(&set);
 					sigaddset(&set,SIGUSR1);

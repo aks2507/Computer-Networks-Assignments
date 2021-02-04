@@ -27,11 +27,14 @@ int main()
     mkfifo(c2,0666);
 	while(1)
     {
-        char c;
-        scanf("%c",&c);
+        char buf[1024];
+        
+        fgets(buf,1024,stdin);
         
         int fd2 = open(c2,O_RDWR);
-        write(fd2,"OK_C2",1024);
+        write(fd2,buf,sizeof(buf));
+
+        fflush(fdopen(fd2,"r+"));
         
         close(fd2);
     }
