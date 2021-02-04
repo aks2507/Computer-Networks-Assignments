@@ -38,3 +38,7 @@
 2) P1 executes P2, P3 and P4, and signals all of them at the same time as a group
 3) Communicate between two threads within a process
 4) Communication between two threads in two processes. P1 sends and P2 receives
+
+## Assignment:7
+1) Parent Process: S; Two other processes C1 and C2 send data to S via a fifo. Another process D sends signal to S, telling to send the message from C1 and C2 to
+   either send to G1(children S\`1 and S\`2) or to G2(children A and B). There is one shared memory that tells how many times kill has been called.
