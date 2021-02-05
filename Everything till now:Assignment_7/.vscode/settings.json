@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "stat.h": "c"
+        "stat.h": "c",
+        "ipc.h": "c",
+        "wait.h": "c",
+        "poll.h": "c",
+        "in.h": "c",
+        "inet.h": "c"
     }
 }
