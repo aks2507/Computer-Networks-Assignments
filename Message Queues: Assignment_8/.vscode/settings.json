@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "cerrno": "c",
+        "semaphore.h": "c"
+    }
+}
