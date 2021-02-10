@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+            "cctype": "cpp",
+            "cmath": "cpp",
+            "cstddef": "cpp",
+            "cstdlib": "cpp",
+            "ctime": "cpp",
+            "cwchar": "cpp",
+            "random": "cpp",
+            "ratio": "cpp",
+            "iostream": "cpp"
+        }
+    }

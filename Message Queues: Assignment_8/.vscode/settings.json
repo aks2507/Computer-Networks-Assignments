@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "cerrno": "c",
-        "semaphore.h": "c"
+        "semaphore.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "msg.h": "c"
     }
 }
