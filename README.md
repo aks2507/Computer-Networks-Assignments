@@ -42,3 +42,11 @@
 ## Assignment:7
 1) Parent Process: S; Two other processes C1 and C2 send data to S via a fifo. Another process D sends signal to S, telling to send the message from C1 and C2 to
    either send to G1(children S\`1 and S\`2) or to G2(children A and B). There is one shared memory that tells how many times kill has been called.
+
+## Assignment:8
+1) Basic implementation of message passing system calls like msgget(),msgsnd(),msgrcv() and msgctl()
+2) Peer to Peer chat using message queues
+3) Print all the information reagarding the message queue
+4) Sequentially send messages to diffrent processes i.e. P1 -> P2 -> P3 -> P4 -> P1 -> ......
+5) Implement the Chat Server using message queues. If P1 sends a message then P2 and P3 should see it, If P2 sends a message then P1 and P3 should see it
+   and If P3 sends a message then P1 and P2 should see it.
