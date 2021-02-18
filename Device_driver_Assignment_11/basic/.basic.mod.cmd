@@ -1,0 +1,1 @@
+cmd_/home/abhishek/Desktop/Computer-Networks-Assignments/Device_driver_Assignment_11/chardev/basic.mod := { echo  /home/abhishek/Desktop/Computer-Networks-Assignments/Device_driver_Assignment_11/chardev/basic.o; echo; } > /home/abhishek/Desktop/Computer-Networks-Assignments/Device_driver_Assignment_11/chardev/basic.mod

@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "module.h": "c",
+        "ethtool.h": "c",
+        "kernel.h": "c"
+    }
+}
