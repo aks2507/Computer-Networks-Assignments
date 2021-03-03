@@ -50,3 +50,17 @@
 4) Sequentially send messages to diffrent processes i.e. P1 -> P2 -> P3 -> P4 -> P1 -> ......
 5) Implement the Chat Server using message queues. If P1 sends a message then P2 and P3 should see it, If P2 sends a message then P1 and P3 should see it
    and If P3 sends a message then P1 and P2 should see it.
+
+## Assignment:9
+1) Use readv() and writev() in a client-server program
+
+## Assignment:10
+1) Create two groups of clients. If a client wants to send a message globally, it gets broadcasted to all the clients. If it wants to send locally, it gets broadcasted only to its group. Group the clients using gids.
+
+##Assignment:11
+1) Implement a basic device driver
+2) Implement a basic character based device driver
+
+## Assignment:12->Minor Exam questions implementation
+1) Clients join a server in a circular manner and get notified by the previosly joined client that they have joined the client-server system. Any new client joins between C1 and the last client that joined the system.
+2) P1 accepts the outputs of P2, P3 AND P4 as and when they are available, and then sends those outputs to P5 and P6 for printing them. P5 and P6 should get the outputs through scanf()/cin and you should not use any read(), write() commands in P1.
