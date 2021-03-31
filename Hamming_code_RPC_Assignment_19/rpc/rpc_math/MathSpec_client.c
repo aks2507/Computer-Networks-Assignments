@@ -4,44 +4,101 @@
  * as a guideline for developing your own functions.
  */
 
+// #include "MathSpec.h"
+
+
+// void mathprog_1(char *host)
+// {
+// 	CLIENT *clnt;
+// 	operations  *result_1;
+// 	operations  mathproc_1_arg;
+
+// #ifndef	DEBUG
+// 	clnt = clnt_create (host, MATHPROG, INITIAL, "udp");
+// 	if (clnt == NULL) {
+// 		clnt_pcreateerror (host);
+// 		exit (1);
+// 	}
+// #endif	/* DEBUG */
+
+// 	result_1 = mathproc_1(&mathproc_1_arg, clnt);
+// 	if (result_1 == (operations *) NULL) {
+// 		clnt_perror (clnt, "call failed");
+// 	}
+// #ifndef	DEBUG
+// 	clnt_destroy (clnt);
+// #endif	 /* DEBUG */
+// }
+
+
+// int main (int argc, char *argv[])
+// {
+// 	char *host;
+
+// 	if (argc < 2) {
+// 		printf ("usage: %s server_host\n", argv[0]);
+// 		exit (1);
+// 	}
+// 	host = argv[1];
+// 	mathprog_1 (host);
+// exit (0);
+// }
+#include <stdio.h>
 #include "MathSpec.h"
 
-
-void
-mathprog_1(char *host)
+int main(int argc, char const *argv[])
 {
-	CLIENT *clnt;
-	operations  *result_1;
-	operations  mathproc_1_arg;
-
-#ifndef	DEBUG
-	clnt = clnt_create (host, MATHPROG, INITIAL, "udp");
-	if (clnt == NULL) {
-		clnt_pcreateerror (host);
-		exit (1);
+	if(argc<2)
+	{
+		printf("Usage: ./mathclient [HOST_NAME]\n");
+		exit(0);
 	}
-#endif	/* DEBUG */
-
-	result_1 = mathproc_1(&mathproc_1_arg, clnt);
-	if (result_1 == (operations *) NULL) {
-		clnt_perror (clnt, "call failed");
+	CLIENT* cl;
+	operations ops,*rtn;
+	cl = clnt_create(argv[1],MATHPROG,INITIAL,"tcp");
+	while(1)
+	{
+		printf("Enter the operations\n");
+		scanf("%d",&(ops.operation));
+		switch(ops.operation)
+		{
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+				printf("Enter two operands\n");
+				scanf("%d%d",&(ops.op1),&(ops.op2));
+				break;
+			case 5:
+				printf("Enter the length: ");
+				scanf("%d",&(ops.len));
+				printf("Enter the elements\n");
+				for(int i=0;i<ops.len;i++)
+					scanf("%d",&(ops.arr[i]));
+				break;
+		}
+		if((rtn=mathproc_1(&ops,cl))==NULL)
+		{
+			perror("Could not connect");
+			exit(0);
+		}
+		else
+		{
+			switch(rtn->operation){
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				printf("Result: %d\n",rtn->result);
+				break;
+				case 5:
+				for(int i=0;i<rtn->len;i++)
+					printf("%d,", rtn->arr[i]);
+				printf("\n");
+				break;
+			}
+		}
+		// mathproc_1(operations *, CLIENT *);
 	}
-#ifndef	DEBUG
-	clnt_destroy (clnt);
-#endif	 /* DEBUG */
-}
-
-
-int
-main (int argc, char *argv[])
-{
-	char *host;
-
-	if (argc < 2) {
-		printf ("usage: %s server_host\n", argv[0]);
-		exit (1);
-	}
-	host = argv[1];
-	mathprog_1 (host);
-exit (0);
+	return 0;
 }

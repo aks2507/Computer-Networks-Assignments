@@ -7,9 +7,8 @@ int main(int argc, char **argv)
 	square_in in;
 	square_out *outp;
 	c1=clnt_create(argv[1],SQUARE_PROG,SQUARE_VERS,"tcp");
-	// printf("Enter the number\n");
-	in.arg1 = atol(argv[2]);
-	// scanf("%ld",&in.arg1);
+	printf("Enter the number\n");
+	scanf("%ld",&in.arg1);
 	outp=squareproc_1(&in,c1);
 	if(outp!=NULL)
 		printf("The square value is %d\n",outp->res1);
