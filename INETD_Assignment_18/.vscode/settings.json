@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "system_error": "c",
+        "socket.h": "c"
+    }
+}
