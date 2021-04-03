@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "un.h": "c",
+        "ipc.h": "c",
+        "stddef.h": "c",
+        "tcp.h": "c"
+    }
+}
