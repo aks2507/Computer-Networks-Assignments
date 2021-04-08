@@ -55,7 +55,11 @@ int main()
     printf("Server up and running\n");
     char conf[] = "Linked";
     fd_set rfd;
-    fd_set wfd;
+    fd_set wfd;for (int j = 0; j < used; j++)
+                {
+                    if (j != i)
+                        write(nsfd[j], &msg, sizeof(msg));
+                }
     fd_set erfd;
     FD_ZERO(&rfd);
     FD_ZERO(&wfd);
@@ -107,7 +111,7 @@ int main()
                         write(nsfd[j], &msg, sizeof(msg));
                 }
             }
-          }
+        }
 
 
     }

@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "select.h": "c",
+        "unistd.h": "c",
+        "string.h": "c",
+        "ip.h": "c"
+    }
+}

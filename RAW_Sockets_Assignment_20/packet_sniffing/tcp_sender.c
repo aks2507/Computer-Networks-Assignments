@@ -76,7 +76,7 @@ int main()
 
     memset(packet, 0, PACK_LEN);
     payload = packet + sizeof(struct iphdr) + sizeof(struct tcphdr);
-    strcpy(payload, "testing of data");
+    strcpy(payload, "testing_of_tcp_data");
 
     //ip header
     iph->ihl = 5;
@@ -90,7 +90,6 @@ int main()
 	iph->check = chksum((unsigned short *) packet, iph->tot_len);//Checksum
 	iph->saddr = inet_addr("11.12.13.14");
 	iph->daddr = saddr.sin_addr.s_addr;
-        struct sockaddr_in saddr;
     saddr.sin_family = AF_INET;
     saddr.sin_port = htons(port);
     saddr.sin_addr.s_addr = inet_addr("127.0.0.1");
@@ -111,17 +110,18 @@ int main()
 	tcph->check = 0;
 	tcph->urg_ptr = 0;
 
-    while (1)
+    int i=5;
+    while (i--)
     {
-		if(sendto(rsfd, packet, iph->tot_len, 0,(struct sockaddr *)&saddr, sizeof(saddr)) < 0)
+        if(sendto(rsfd, packet, iph->tot_len, 0,(struct sockaddr *)&saddr, sizeof(saddr)) < 0)
         {
-			perror("sendto");
+            perror("sendto");
             exit(1);
-		}
-		else
+        }
+        else
         {
-			printf("Packet Sent!! Length : %d bytes\n", iph->tot_len);
-		}
+            printf("Packet Sent!! Length : %d bytes\n", iph->tot_len);
+        }
         sleep(1);
 	}
 }
