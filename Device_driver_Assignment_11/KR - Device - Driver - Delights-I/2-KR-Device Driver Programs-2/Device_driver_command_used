@@ -1,0 +1,18 @@
+commands used :
+
+make || make -C /lib/modules/$(uname -4)/build M=$PWD modules  // to build module
+
+lsmod | grep "ex" // ex is prefix of device driver name ,it checks if any driver is loaded
+
+insmod ./char_dev.ko //ko file ,it inserts module
+
+cat /proc/devices //all the devices are loaded into the system
+
+mknod -m 666 /dev/char_dev c 240(major number) 0(minor number) // for giving permissions for Read Write access
+
+ls -l /dev/char_dev //displays all the permissions of the device
+
+tail -f /var/log/syslog // device log over the system
+
+dmesg //display message
+
